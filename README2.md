@@ -760,3 +760,74 @@ implementation 'org.springframework.boot:spring-boot-starter-validation'
   - Oracle에서는 VARCHAR2(4000) 이상 사용 못함. 4000자 이상 불가능
   - 긴 글, 이미지, 영화 등 대용량 데이터를 저장시 LOB(Large OBject) 타입을 사용
   - CLOB(Character LOB), BLOB(Binary LOB)
+
+  ![alt text](image-25.png)
+
+### MyBatis Spring Boot
+
+- Spring Boot 4.0.5
+- JDK 21
+- Gradle 9.x
+- Oracle 21
+- MyBatis
+- REST API 테스트
+- Spring MVC
+
+#### 프로젝트 생성
+
+- Spring Initializr : Create a Gradle Project...
+- Artifact ID : studygroup
+- Choose dependencies
+  - Spring Boot DevTools
+  - Lombok
+  - Spring Web
+  - Oracle Driver
+  - Thymeleaf
+  - SpringDoc OpenAPI - swagger ui
+  - MyBatis Framework
+
+#### Oracle 사용자, 스키마 생성
+
+```sql
+-- StudyGroup 사용자, 스키마
+CREATE USER studygroup IDENTIFIED BY java12345;
+
+-- 권한
+GRANT ALL PRIVILEGES TO studygroup;
+```
+
+#### 테이블 생성
+
+```sql
+-- student 테이블
+CREATE TABLE student (
+	id NUMBER(10) PRIMARY KEY,
+	name VARCHAR2(100) NOT NULL,
+	age NUMBER(3),
+	major VARCHAR2(100)
+);
+
+-- 시퀀스
+CREATE SEQUENCE student_seq
+START WITH 1
+INCREMENT BY 1
+nocache;
+
+-- 샘플 데이터
+INSERT INTO student VALUES (student_seq.nextval, '홍길동', 20, '컴퓨터공학');
+INSERT INTO student VALUES (student_seq.nextval, '이영희', 22, '전자공학');
+
+COMMIT;
+```
+
+#### application.properties 설정
+
+- Oracle 설정
+- MyBatis 설정
+
+#### MyBatis
+
+- 개발자가 작성한 SQL문을 매핑해서 지원하는 프레임워크
+- DB 쿼리를 xml로 Java 코드를 분리, 유지보수와 생산성을 높이는 기능
+- JPA : ORM 프레임워크와 달리 직접 쿼리를 작성
+- JPA가 가진 복잡한 쿼리 문제를 MyBatis로 해결
