@@ -712,6 +712,51 @@ implementation 'org.springframework.boot:spring-boot-starter-validation'
 
 ### Spring Boot webboard 계속
 
-#### Board 수정
+#### 추가 어노테이션
+
+- 일반
+  - @RequiredArgConstructor : `final` 멤버변수 파라미터를 생성자로 생성하는 Lombok 어노테이션
+  - @AllArgsConstructor : 클래스의 모든 멤버변수를 파라미터로 생성자 생성
+  - @NoArgsConstructor : 기본 생성자를 자동으로 생성
+
+- DB 모델용
+  - @OneToMany : DB모델링 일대다 ERD 관계를 entity 내 클래스에서 설정
+  - @ManyToOne : 다대일 ERD 관계를 설정
+
+#### Board 작업
+
+- 게시글 수정
+  - board_create.html을 create와 modify 모드로 분리
+  - board_detail.html에 수정 버튼 추가
+  - BoardController에 /modify/{bno} GetMapping, PostMapping 작업
+  - BoardService에 putBoardOne 메서드 작업
+
+- 게시글 삭제
+  - board_detail.html에 삭제 버튼 추가
+  - BoardController에 /delete/{bno} GetMapping 메서드 추가
+  - BoardService에 deleteBoardOne 메서드 작업
 
 #### Reply 작업
+
+- entity/Reply 클래스
+  - 이전 Board 클래스 생성시와 동일
+  - Board board 멤버변수를 @ManyToOne으로 추가
+
+- entity/Board 클래스
+  - List\<Reply> replyList 멤버변수, @OneToMany로 추가
+
+- repository/ReplyRepository 인터페이스 생성
+- service/ReplyService 클래스 생성, setReply() 메서드 작성
+- validation/ReplyForm 클래스 생성
+- controller/ReplyController 클래스 생성
+- controller/BoardController 클래스 내 showDetail() 메서드 ReplyForm 파라미터 추가
+- templates/board_detail.html 댓글 영역 코드 추가
+
+#### H2 DB에서 Oracle로 전환
+
+- application.properties에 H2 관련 설정을 Oracle로 변경
+- 시퀀스 문제(increment 50) 해결해야함
+- Board content 길이 문제 해결해야함
+  - Oracle에서는 VARCHAR2(4000) 이상 사용 못함. 4000자 이상 불가능
+  - 긴 글, 이미지, 영화 등 대용량 데이터를 저장시 LOB(Large OBject) 타입을 사용
+  - CLOB(Character LOB), BLOB(Binary LOB)
