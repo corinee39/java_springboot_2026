@@ -763,6 +763,8 @@ implementation 'org.springframework.boot:spring-boot-starter-validation'
 
   ![alt text](image-25.png)
 
+## 8일차
+
 ### MyBatis Spring Boot
 
 - Spring Boot 4.0.5
@@ -911,18 +913,149 @@ implementation 'org.springframework.boot:spring-boot-starter-validation'
 
 ![alt text](image-27.png)
 
-## 8일차
+## 9일차
 
 ### MyBatis StudyGroup 계속
 
+스터디 모집 웹사이트
+
 #### 글 수정
+
+- controller/BoardController.java 에 수정처리 추가
 
 #### 삭제 메시지창 띄우기
 
+- /templates/board/detail.html 삭제 버튼 수정
+  - 부트스트랩 기능 추가
+  - 자바스크립트 코드 추가
+
+  ![alt text](image-28.png)
+
+#### 댓글 테이블 생성
+
+- 게시글 1 : 댓글 N
+
+```sql
+CREATE TABLE REPLY (
+    REPLY_ID         NUMBER          PRIMARY KEY,
+    BOARD_ID         NUMBER          NOT NULL,
+    REPLY_CONTENT    VARCHAR2(1000)  NOT NULL,
+    REPLY_WRITER     VARCHAR2(100)   NOT NULL,
+    CREATED_AT       DATE DEFAULT SYSDATE NOT NULL,
+    CONSTRAINT FK_REPLY_BOARD
+        FOREIGN KEY (BOARD_ID)
+        REFERENCES BOARD (BOARD_ID)
+);
+
+CREATE SEQUENCE REPLY_SEQ
+START WITH 1
+INCREMENT BY 1
+NOCACHE
+NOCYCLE;
+```
+
+#### 댓글 관련 파일 생성
+
+- controller/ReplyController 클래스
+- dto/Reply 클래스
+- mapper/ReplyMapper 인터페이스
+- service/ReplyService 인터페이스
+- service/ReplyServiceImpl 클래스
+- validation/ReplyForm 클래스
+- resources/mapper/ReplyMapper.xml 파일
+
+#### 페이징 개요
+
+- 게시판 글이 한 화면에 일정단위(보통 10개)로 출력
+- 다음 페이지로 넘어가는 페이징 숫자영역 따로 표시
+- 한 페이지에 수십만개의 데이터를 한번에 출력 못함
+
+```sql
+-- 오라클에 한함
+OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY
+```
+
+#### 신규 추가
+
+- dto/PageRequest 클래스 생성
+- dto/PageResponse 클래스 생성
+
+#### 기존파일 수정
+
+- mapper/BoardMapper 인터페이스, findAll 메서드 수정, getTotalCount 메서드 추가해야함
+- mapper/BoardMapper.xml 위 메서드 관련 쿼리 수정, 작성
+- service/BoardService 인터페이스 readBoardList 메서드 수정
+- service/BoardServiceImpl 클래스 readBoardList 메서드 수정
+- controller/BoardController 클래스 list 메서드 수정
+- templates/board/list.html 수정
+
+  ![alt text](image-29.png)
+
+#### 게시글 옆 댓글수 표시
+
+- dto/Board 클래스에 멤버변수 추가
+- mapper/BoardMapper.xml 서브쿼리 추가
+
+  ![alt text](image-30.png)
+
+#### 회원가입/로그인 개요
+
+- 직접개발 vs Spring Security 의존성 추가
+- Spring Security + JMT : API 방식 개발
+- 세션 : 접속 후 사용시간. 사용자의 상태정보를 유지하는 방법
+- HttpSession 사용
+- 회원 비번, 민감한 개인정보는 암호화
+
+#### 회원 테이블 생성
+
+```sql
+-- 회원테이블
+CREATE TABLE USER_ACCOUNT (
+    USER_ID      NUMBER         PRIMARY KEY,
+    LOGIN_ID     VARCHAR2(50)   NOT NULL UNIQUE,
+    PASSWORD     VARCHAR2(255)  NOT NULL,
+    NAME         VARCHAR2(100)  NOT NULL,
+    ROLE         VARCHAR2(30)   DEFAULT 'ROLE_USER' NOT NULL,
+    CREATED_AT   DATE           DEFAULT SYSDATE NOT NULL,
+    UPDATED_AT   DATE
+);
+
+-- 회원용 시퀀스
+CREATE SEQUENCE USER_ACCOUNT_SEQ
+START WITH 1
+INCREMENT BY 1
+NOCACHE
+NOCYCLE;
+```
+
+#### 의존성 추가
+
+- build.gradle 에 암호화 관련 의존성 추가
+
+```gradle
+implementation 'org.springframework.security:spring-security-crypto'
+```
+
+#### 관련 파일 변경/추가
+
+- config/PasswordConfig 클래스 생성
+- dto/User 클래스 생성
+- mapper/UserMapper 인터페이스 생성
+- mapper/UserMapper.xml 생성
+- service/UserService 인터페이스 생성
+- service/UserServiceImpl 클래스 생성
+- dto/Loginuser 클래스 생성 - 브라우저에 보관되는 세션에 필요한 정보만 클래스로 생성
+- controller/UserController 클래스 생성
+- templates/login/join.html 페이지 생성
+
+## 10일차
+
+### MyBatis StudyGroup 계속
+
+#### 회원가입/로그인 계속
+
+#### 스터디모집 웹사이트
+
+#### 게시판 내용 웹에디터 추가
+
 #### 조회수 증가
-
-#### 댓글 작업
-
-#### 회원가입
-
-#### 로그인
