@@ -921,11 +921,11 @@ implementation 'org.springframework.boot:spring-boot-starter-validation'
 
 #### 글 수정
 
-- controller/BoardController.java 에 수정처리 추가
+- controller/BoardController.java 에 수정처리 추가 - [소스](./day09/studygroup/src/main/java/com/pknu26/studygroup/controller/BoardController.java)
 
 #### 삭제 메시지창 띄우기
 
-- /templates/board/detail.html 삭제 버튼 수정
+- /templates/board/detail.html 삭제 버튼 수정 - [소스](./day09/studygroup/src/main/resources/templates/board/detail.html)
   - 부트스트랩 기능 추가
   - 자바스크립트 코드 추가
 
@@ -956,13 +956,13 @@ NOCYCLE;
 
 #### 댓글 관련 파일 생성
 
-- controller/ReplyController 클래스
-- dto/Reply 클래스
-- mapper/ReplyMapper 인터페이스
-- service/ReplyService 인터페이스
-- service/ReplyServiceImpl 클래스
-- validation/ReplyForm 클래스
-- resources/mapper/ReplyMapper.xml 파일
+- controller/ReplyController 클래스 - [소스](./day09/studygroup/src/main/java/com/pknu26/studygroup/controller/ReplyController.java)
+- dto/Reply 클래스 - [소스](./day09/studygroup/src/main/java/com/pknu26/studygroup/dto/Reply.java)
+- mapper/ReplyMapper 인터페이스 - [소스](./day09/studygroup/src/main/java/com/pknu26/studygroup/mapper/ReplyMapper.java)
+- service/ReplyService 인터페이스 - [소스](./day09/studygroup/src/main/java/com/pknu26/studygroup/service/ReplyService.java)
+- service/ReplyServiceImpl 클래스 - [소스](./day09/studygroup/src/main/java/com/pknu26/studygroup/service/ReplyServiceImpl.java)
+- validation/ReplyForm 클래스 - [소스](./day09/studygroup/src/main/java/com/pknu26/studygroup/validation/ReplyForm.java)
+- resources/mapper/ReplyMapper.xml 파일 - [소스](./day09/studygroup/src/main/resources/mapper/ReplyMapper.xml)
 
 #### 페이징 개요
 
@@ -977,24 +977,24 @@ OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY
 
 #### 신규 추가
 
-- dto/PageRequest 클래스 생성
-- dto/PageResponse 클래스 생성
+- dto/PageRequest 클래스 생성 - [소스](./day09/studygroup/src/main/java/com/pknu26/studygroup/dto/PageRequest.java)
+- dto/PageResponse 클래스 생성 - [소스](./day09/studygroup/src/main/java/com/pknu26/studygroup/dto/PageResponse.java)
 
 #### 기존파일 수정
 
-- mapper/BoardMapper 인터페이스, findAll 메서드 수정, getTotalCount 메서드 추가해야함
-- mapper/BoardMapper.xml 위 메서드 관련 쿼리 수정, 작성
-- service/BoardService 인터페이스 readBoardList 메서드 수정
-- service/BoardServiceImpl 클래스 readBoardList 메서드 수정
-- controller/BoardController 클래스 list 메서드 수정
-- templates/board/list.html 수정
+- mapper/BoardMapper 인터페이스, findAll 메서드 수정, getTotalCount 메서드 추가해야함 - [소스](./day09/studygroup/src/main/java/com/pknu26/studygroup/mapper/BoardMapper.java)
+- mapper/BoardMapper.xml 위 메서드 관련 쿼리 수정, 작성 - [소스](./day09/studygroup/src/main/resources/mapper/BoardMapper.xml)
+- service/BoardService 인터페이스 readBoardList 메서드 수정 - [소스](./day09/studygroup/src/main/java/com/pknu26/studygroup/service/BoardService.java)
+- service/BoardServiceImpl 클래스 readBoardList 메서드 수정 - [소스](./day09/studygroup/src/main/java/com/pknu26/studygroup/service/BoardServiceImpl.java)
+- controller/BoardController 클래스 list 메서드 수정 - [소스](./day09/studygroup/src/main/java/com/pknu26/studygroup/controller/BoardController.java)
+- templates/board/list.html 수정 - [소스](./day09/studygroup/src/main/resources/templates/board/list.html)
 
   ![alt text](image-29.png)
 
 #### 게시글 옆 댓글수 표시
 
-- dto/Board 클래스에 멤버변수 추가
-- mapper/BoardMapper.xml 서브쿼리 추가
+- dto/Board 클래스에 멤버변수 추가 - [소스](./day09/studygroup/src/main/java/com/pknu26/studygroup/dto/Board.java)
+- mapper/BoardMapper.xml 서브쿼리 추가 - [소스](./day09/studygroup/src/main/resources/mapper/BoardMapper.xml)
 
   ![alt text](image-30.png)
 
@@ -1038,21 +1038,43 @@ implementation 'org.springframework.security:spring-security-crypto'
 
 #### 관련 파일 변경/추가
 
-- config/PasswordConfig 클래스 생성
-- dto/User 클래스 생성
-- mapper/UserMapper 인터페이스 생성
-- mapper/UserMapper.xml 생성
-- service/UserService 인터페이스 생성
-- service/UserServiceImpl 클래스 생성
-- dto/Loginuser 클래스 생성 - 브라우저에 보관되는 세션에 필요한 정보만 클래스로 생성
-- controller/UserController 클래스 생성
-- templates/login/join.html 페이지 생성
+- config/PasswordConfig 클래스 생성 - [소스](./day09/studygroup/src/main/java/com/pknu26/studygroup/config/PasswordConfig.java)
+- dto/User 클래스 생성 - [소스](./day09/studygroup/src/main/java/com/pknu26/studygroup/dto/User.java)
+- mapper/UserMapper 인터페이스 생성 - [소스](./day09/studygroup/src/main/java/com/pknu26/studygroup/mapper/UserMapper.java)
+- mapper/UserMapper.xml 생성 - [소스](./day09/studygroup/src/main/resources/mapper/UserMapper.xml)
+- service/UserService 인터페이스 생성 - [소스](./day09/studygroup/src/main/java/com/pknu26/studygroup/service/UserService.java)
+- service/UserServiceImpl 클래스 생성 - [소스](./day09/studygroup/src/main/java/com/pknu26/studygroup/service/UserServiceImpl.java)
+- dto/Loginuser 클래스 생성 - 브라우저에 보관되는 세션에 필요한 정보만 클래스로 생성 - [소스](./day09/studygroup/src/main/java/com/pknu26/studygroup/dto/LoginUser.java)
+- controller/UserController 클래스 생성 - [소스](./day09/studygroup/src/main/java/com/pknu26/studygroup/controller/UserController.java)
+- templates/user/join.html 페이지 생성 - [소스](./day09/studygroup/src/main/resources/templates/user/join.html)
+
+  ![alt text](image-31.png)
 
 ## 10일차
 
 ### MyBatis StudyGroup 계속
 
 #### 회원가입/로그인 계속
+
+- templates/user/login.html 생성
+- controller/UserController 클래스에 로그인 관련 메서드 추가
+
+  ![alt text](image-32.png)
+
+#### 부트스트랩 템플릿 적용
+
+- [부트스트랩 공식 사이트](https://getbootstrap.com/docs/5.3/examples/)
+  - 부트스트랩 예제 페이지, Download examples 다운로드 후 압축해제
+  - 각 기능별 폴더에서 참조하여 사용
+- [스타트 부트스트랩](https://startbootstrap.com/)
+- [mdbootstrap](https://mdbootstrap.com/freebies/)
+- [bootstrapmade](https://bootstrapmade.com/)
+
+#### 부트스트랩 기능 구현
+
+- Navbar/index.html 소스 참조
+- 태그 복사/붙여넣기
+- 필요 기능 추가
 
 #### 스터디모집 웹사이트
 

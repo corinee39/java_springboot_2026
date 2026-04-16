@@ -1,0 +1,49 @@
+<!doctype html>
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{layout :: layout(~{::content})}"
+>
+  <div th:fragment="content" class="container my-3">
+    <div class="row">
+      <div class="col">
+        <!-- 상품 목록 -->
+        <table class="table">
+          <thead class="table-dark">
+            <tr>
+              <th>품번</th>
+              <th>상품명</th>
+              <th>카테고리</th>
+              <th>가격</th>
+              <th>등록일</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="product, index : ${productList}">
+              <td th:text="${product.productId}"></td>
+              <td>
+                <a
+                  th:href="@{|/product/detail/${product.productId}|}"
+                  th:text="${product.productName}"
+                ></a>
+              </td>
+              <td th:text="${product.category}"></td>
+              <td th:text="${product.price}"></td>
+              <!-- 날짜포맷 변경 함수 #temporals.format(date, 'yyyy-MM-dd HH:mm:ss') -->
+              <td
+                th:text="${#temporals.format(product.createdAt, 'yyyy-MM-dd HH:mm')}"
+              ></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- 상품 등록 버튼 영억 -->
+        <div class="text-end">
+          <a th:href="@{/product/create}" class="btn btn-sm btn-success"
+            ><i class="bi bi-pencil"></i> 상품 등록</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</html>
