@@ -941,6 +941,6 @@ class Dog extends Animal {
     - 타입을 마구 섞는게 아님
     - 안전하게 고정하여 사용하는 기술
 
-  #### Next Chapter
+  ## Next Chapter
 
   [SpringBoot](./README2.md)
