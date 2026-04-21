@@ -1,0 +1,247 @@
+<!doctype html>
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{layout :: layout(~{::content}, ~{::pageScripts})}"
+>
+  <div th:fragment="content" class="container my-3">
+    <h3>스터디포스트 상세</h3>
+
+    <table class="table table-bordered">
+      <thead class="table-dark">
+        <tr>
+          <th colspan="2" class="text-center" th:text="${post.title}"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th style="width: 150px">번호</th>
+          <td th:text="${post.postId}"></td>
+        </tr>
+        <tr>
+          <th>카테고리</th>
+          <td th:text="${post.categoryName}"></td>
+        </tr>
+        <!-- <tr>
+          <th>제목</th>
+          <td th:text="${post.title}"></td>
+        </tr> -->
+        <tr>
+          <th>작성자</th>
+          <td th:text="${post.writerName}"></td>
+        </tr>
+        <tr>
+          <th>모집인원</th>
+          <td th:text="${post.maxMembers}"></td>
+        </tr>
+        <tr>
+          <th>조회수</th>
+          <td th:text="${post.viewCount}"></td>
+        </tr>
+        <tr>
+          <th>작성일</th>
+          <td
+            th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}"
+          ></td>
+        </tr>
+        <tr>
+          <th>내용</th>
+          <td>
+            <div th:utext="${post.content}"></div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="text-end">
+      <a
+        th:if="${session.loginUser != null and session.loginUser.userId == post.userId}"
+        th:href="@{|/studypost/edit/${post.postId}|}"
+        class="btn btn-sm btn-primary"
+      >
+        <i class="bi bi-pencil-square"></i> 수정
+      </a>
+
+      <form
+        th:if="${session.loginUser != null and (session.loginUser.userId == post.userId or session.loginUser.role == 'ROLE_ADMIN')}"
+        th:action="@{|/studypost/delete/${post.postId}|}"
+        method="post"
+        style="display: inline"
+        onsubmit="return confirm('정말 삭제하시겠습니까?');"
+      >
+        <button
+          type="submit"
+          class="btn btn-sm btn-danger"
+          th:if="${session.loginUser != null and (session.loginUser.userId == post.userId or session.loginUser.role == 'ROLE_ADMIN')}"
+        >
+          <i class="bi bi-trash-fill"></i> 삭제
+        </button>
+      </form>
+      <a th:href="@{/studypost/list}" class="btn btn-sm btn-success">
+        <i class="bi bi-list"></i> 목록
+      </a>
+    </div>
+
+    <hr />
+    <h4>댓글</h4>
+
+    <div th:if="${#lists.isEmpty(commentList)}" class="text-muted">
+      아직 댓글이 없습니다
+    </div>
+
+    <!-- 댓글 리스트 -->
+    <div th:each="comment : ${commentList}" class="border rounded p-2 mb-2">
+      <div class="d-flex justify-content-between">
+        <div>
+          <strong th:text="${comment.writerName}"></strong>
+          <span th:text="${comment.content}"></span>
+          <small
+            class="text-muted"
+            th:text="${#temporals.format(comment.createdAt, 'yyyy-MM-dd HH:mm')}"
+          ></small>
+
+          <form
+            th:if="${session.loginUser != null and (session.loginUser.userId == comment.userId or session.loginUser.role == 'ROLE_ADMIN')}"
+            th:action="@{|/comment/delete/${comment.commentId}|}"
+            method="post"
+            onsubmit="return confirm('댓글을 삭제하시겠습니까?');"
+            style="display: inline"
+          >
+            <button type="submit" class="btn btn-sm btn-danger">
+              <i class="bi bi-trash-fill"></i> 삭제
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- 댓글 작성 -->
+    <h5>댓글 작성</h5>
+    <form
+      th:action="@{/comment/create}"
+      th:object="${commentForm}"
+      method="post"
+    >
+      <input type="hidden" th:field="*{postId}" />
+
+      <div class="mb-2">
+        <textarea
+          th:field="*{content}"
+          class="form-control"
+          rows="1"
+        ></textarea>
+      </div>
+
+      <div
+        class="error alert alert-danger"
+        th:if="${#fields.hasErrors('content')}"
+        th:errors="*{content}"
+      ></div>
+
+      <div class="text-end">
+        <button type="submit" class="btn btn-sm btn-primary">
+          <i class="bi bi-floppy"></i>
+          댓글 등록
+        </button>
+      </div>
+    </form>
+
+    <!-- 스터디 신청 리스트 / 글 작성자만 볼 수 있도록 -->
+    <hr />
+    <div>
+      <h4>신청자 목록</h4>
+
+      <div th:if="${#lists.size(applicationList) == 0}">
+        아직 신청자가 없습니다.
+      </div>
+
+      <!-- application은 thymeleaf의 예약어(Keyword) -->
+      <div th:each="apply : ${applicationList}" class="border rounded p-2 mb-2">
+        <div>
+          <strong th:text="${apply.applicantName}"></strong>
+          <span class="badge bg-secondary" th:text="${apply.status}"></span>
+        </div>
+
+        <div class="mt-2" th:text="${apply.message}"></div>
+
+        <div class="mt-2 text-end">
+          <!-- 승인/거절 버튼 영역 -->
+          <form
+            th:if="${apply.status == 'PENDING'}"
+            th:action="@{|/application/approve/${apply.applicationId}|}"
+            method="post"
+            style="display: inline"
+          >
+            <button
+              th:if="${session.loginUser != null and (session.loginUser.userId == post.userId or session.loginUser.role == 'ROLE_ADMIN')}"
+              type="submit"
+              class="btn btn-sm btn-success"
+            >
+              <i class="bi bi-hand-thumbs-up-fill"></i> 승인
+            </button>
+          </form>
+
+          <form
+            th:if="${apply.status == 'PENDING'}"
+            th:action="@{|/application/reject/${apply.applicationId}|}"
+            method="post"
+            style="display: inline"
+          >
+            <button
+              th:if="${session.loginUser != null and (session.loginUser.userId == post.userId or session.loginUser.role == 'ROLE_ADMIN')}"
+              type="submit"
+              class="btn btn-sm btn-danger"
+            >
+              <i class="bi bi-hand-thumbs-down-fill"></i> 거절
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- 스터디 신청 영역 -->
+    <h5>스터디 신청</h5>
+    <div
+      th:if="${session.loginUser != null and session.loginUser.userId != post.userId}"
+    >
+      <form
+        th:action="@{/application/create}"
+        th:object="${studyApplicationForm}"
+        method="post"
+      >
+        <div th:if="${#fields.hasGlobalErrors()}" class="alert alert-danger">
+          <p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+        </div>
+        <input type="hidden" th:field="*{postId}" />
+
+        <div class="mb-2">
+          <textarea
+            th:field="*{message}"
+            class="form-control"
+            rows="1"
+            placeholder="신청메시지를 입력하세요"
+          ></textarea>
+        </div>
+
+        <div
+          class="error alert alert-danger"
+          th:if="${#fields.hasErrors('message')}"
+          th:errors="*{message}"
+        ></div>
+
+        <div class="text-end">
+          <button type="submit" class="btn btn-sm btn-warning">
+            <i class="bi bi-send-fill"></i> 신청
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div
+      th:if="${session.loginUser != null and session.loginUser.userId == post.userId}"
+    >
+      본인 포스트에는 신청할 수 없습니다.
+    </div>
+  </div>
+
+  <script th:fragment="pageScripts"></script>
+</html>

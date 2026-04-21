@@ -66,15 +66,50 @@ StudyGroup
 
 - 스터디포스트 상세보기 확인
 
+## 13일차
+
+#### 스터디모집 기능
+
+- 스터디포스트에 아래 댓글 기능
+  - dto, Comment 클래스
+  - validation, CommentForm 클래스
+  - mapper, CommentMapper 인터페이스
+  - templates/mapper, CommentMapper.xml SQL
+  - service, CommentService 클래스
+  - controller, CommentController 클래스
+  - controller, StudyPostController.detail() 댓글 목록, 폼 추가
+  - html, post/detail.html 화면 추가
+
+    ![alt text](image-40.png)
+
+- 스터디 신청 기능
+  - dto, StudyApplication 클래스
+  - validation, StudyApplicationForm 클래스
+  - mapper, StudyApplicationMapper 인터페이스
+  - templates/mapper, StudyApplication.xml
+  - service, StudyApplicationService 클래스
+  - controller, StudyApplicationController 클래스
+  - html, post/detail.html 화면 추가
+
 #### 필요이슈
+
+- [x] 컨트롤러 post 메서드 파라미터 순서 중요
+  - 입력검증 파라미터 다음에 BindingResult가 위치해야함!
+  - @Valid CommentForm commentForm, BindingResult bindingResult, ...
+
+- [ ] 스터디 신청 문제 - 신청리스트 띄우는 것으로 반정도 완료
+  - 중복신청 알림 없음
+  - 신청 후 메시지 없음
 
 - home.html 관리자가 관리할 화면 생성
 - home.html에 동적바인딩
+- 기존 게시판 상세 디자인 StudyPost 상세 형태로 변경
 - 로그아웃 후 home으로 이동
 - 에러페이지 필요
-- Join, Login 페이지 버튼 디자인 변경
+- [x] join, login.html 버튼 디자인 변경
 - 스터디포스트 페이징
 - 전체 푸터 작업
+- 파일 업로드
 - Spring Security
 - JWT
 - React와 연동
