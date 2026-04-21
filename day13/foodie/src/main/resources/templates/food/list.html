@@ -1,0 +1,62 @@
+<!doctype html>
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{layout :: layout(~{::content})}"
+>
+  <div th:fragment="content" class="container my-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2>음식 목록</h2>
+      <a th:href="@{/food/create}" class="btn btn-primary">
+        <i class="bi bi-plus-lg"></i> 등록
+      </a>
+    </div>
+
+    <table class="table table-striped table-hover text-center">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>이름</th>
+          <th>카테고리</th>
+          <th>평점</th>
+          <th>먹은 날짜</th>
+          <th>작성일</th>
+          <th>관리</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="food : ${foodList}">
+          <td th:text="${food.id}"></td>
+          <td>
+            <a th:href="@{|/food/detail/${food.id}|}"
+               th:text="${food.name}"></a>
+          </td>
+          <td th:text="${food.category}"></td>
+          <td>
+            <span th:each="i : ${#numbers.sequence(1, food.rating)}">⭐</span>
+          </td>
+          <td th:text="${food.eatDate}"></td>
+          <td th:text="${food.createdAt}"></td>
+          <td>
+            <a th:href="@{|/food/edit/${food.id}|}" 
+               class="btn btn-sm btn-warning">
+              수정
+            </a>
+            <a th:href="@{|/food/delete/${food.id}|}" 
+               class="btn btn-sm btn-danger"
+               onclick="return confirm('삭제하시겠습니까?')">
+              삭제
+            </a>
+          </td>
+        </tr>
+
+        <!-- 데이터 없을 때 -->
+        <tr th:if="${#lists.isEmpty(foodList)}">
+          <td colspan="7">등록된 음식이 없습니다.</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</html>
