@@ -55,7 +55,7 @@ public class FoodController {
     public String showEditForm(@PathVariable Long id, Model model) {
         Food food = this.foodService.getFoodById(id);
         model.addAttribute("food", food);
-        return "food/edit";
+        return "food/create";
     }
 
     // 수정 처리

@@ -226,6 +226,7 @@
             rows="1"
             placeholder="신청메시지를 입력하세요"
           ></textarea>
+          <div class="text-danger mt-1" th:errors="*{message}"></div>
         </div>
 
         <!-- 스터디 게시글 모집상태가 CLOSED면 버튼을 숨김 -->

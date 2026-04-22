@@ -5,10 +5,9 @@
   th:replace="~{layout :: layout(~{::content})}"
 >
   <div th:fragment="content" class="container my-4">
-
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h2>음식 목록</h2>
-      <a th:href="@{/food/create}" class="btn btn-primary">
+      <a th:href="@{/food/create}" class="btn btn-sm btn-primary">
         <i class="bi bi-plus-lg"></i> 등록
       </a>
     </div>
@@ -29,24 +28,34 @@
         <tr th:each="food : ${foodList}">
           <td th:text="${food.id}"></td>
           <td>
-            <a th:href="@{|/food/detail/${food.id}|}"
-               th:text="${food.name}"></a>
+            <a
+              th:href="@{|/food/detail/${food.id}|}"
+              th:text="${food.name}"
+            ></a>
           </td>
           <td th:text="${food.category}"></td>
           <td>
             <span th:each="i : ${#numbers.sequence(1, food.rating)}">⭐</span>
           </td>
-          <td th:text="${food.eatDate}"></td>
-          <td th:text="${food.createdAt}"></td>
+          <td
+            th:text="${#temporals.format(food.eatDate, 'yyyy-MM-dd HH:mm')}"
+          ></td>
+          <td
+            th:text="${#temporals.format(food.createdAt, 'yyyy-MM-dd HH:mm')}"
+          ></td>
           <td>
-            <a th:href="@{|/food/edit/${food.id}|}" 
-               class="btn btn-sm btn-warning">
-              수정
+            <a
+              th:href="@{|/food/edit/${food.id}|}"
+              class="btn btn-sm btn-warning"
+            >
+              <i class="bi bi-pencil"></i> 수정
             </a>
-            <a th:href="@{|/food/delete/${food.id}|}" 
-               class="btn btn-sm btn-danger"
-               onclick="return confirm('삭제하시겠습니까?')">
-              삭제
+            <a
+              th:href="@{|/food/delete/${food.id}|}"
+              class="btn btn-sm btn-danger"
+              onclick="return confirm('삭제하시겠습니까?');"
+            >
+              <i class="bi bi-trash-fill"></i> 삭제
             </a>
           </td>
         </tr>
@@ -57,6 +66,5 @@
         </tr>
       </tbody>
     </table>
-
   </div>
 </html>

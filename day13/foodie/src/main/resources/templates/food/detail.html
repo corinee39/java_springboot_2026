@@ -35,12 +35,16 @@
 
             <div class="mb-3">
               <strong>먹은 날짜 :</strong>
-              <span th:text="${food.eatDate}"></span>
+              <span
+                th:text="${#temporals.format(food.eatDate, 'yyyy-MM-dd HH:mm')}"
+              ></span>
             </div>
 
             <div class="mb-3">
               <strong>작성일 :</strong>
-              <span th:text="${food.createdAt}"></span>
+              <span
+                th:text="${#temporals.format(food.createdAt, 'yyyy-MM-dd HH:mm')}"
+              ></span>
             </div>
 
             <div class="mb-3">
@@ -52,21 +56,23 @@
             </div>
 
             <div class="d-flex justify-content-between mt-4">
-              <a th:href="@{/food/list}" class="btn btn-secondary"> 목록 </a>
+              <a th:href="@{/food/list}" class="btn btn-sm btn-secondary">
+                <i class="bi bi-list"></i> 목록
+              </a>
 
               <div>
                 <a
                   th:href="@{|/food/edit/${food.id}|}"
-                  class="btn btn-warning me-2"
+                  class="btn btn-sm btn-warning me-2"
                 >
-                  수정
+                  <i class="bi bi-pencil"></i> 수정
                 </a>
                 <a
                   th:href="@{|/food/delete/${food.id}|}"
-                  class="btn btn-danger"
+                  class="btn btn-sm btn-danger"
                   onclick="return confirm('삭제하시겠습니까?');"
                 >
-                  삭제
+                  <i class="bi bi-trash-fill"></i> 삭제
                 </a>
               </div>
             </div>
