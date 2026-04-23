@@ -1,0 +1,32 @@
+package com.pknu26.studygroup.config;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import lombok.RequiredArgsConstructor;
+
+@Configuration
+@RequiredArgsConstructor
+public class WebMvcConfig implements WebMvcConfigurer {
+
+    private final FileProperties fileProperties;
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+
+        String uploadDir = fileProperties.getUploadDir();
+
+        // Windows OS 서버 경로처리 부분(file:/// 필수)
+        // 예전에는 Spring에서 윈도우 경로 작성시 D:\\upload\\studygroup
+        // 현재는 D:/upload/studygroup
+        // String resourcePath = "file:///" + uploadDir; 로 써도 됨
+        String resourcePath = "file:///" + uploadDir.replace("\\", "/");
+
+        // 서버상에서 이미지가 들어있는 실제 경로를 웹서버 URL로 변경
+        registry.addResourceHandler("/upload/**")
+                .addResourceLocations(resourcePath);
+    }
+
+
+}
