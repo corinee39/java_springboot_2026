@@ -263,8 +263,8 @@ https://github.com/user-attachments/assets/62babf50-61d6-408d-a113-1c19e024b7e9
   ![alt text](image-48.png)
 
 - [ ] Footer 영역, Privacy(개인정보처리방침), Terms(정책) 추가 개발 필요
-- [ ] 각 입력태그에 placeholder 추가
-- [ ] 게시판 댓글 작성자는 로그인한 아이디 바로 표시
+- [x] 각 입력태그에 placeholder 추가
+- [x] 게시판 댓글 작성자는 로그인한 아이디 바로 표시
 - [ ] 게시판 첨부파일 추가
 - [ ] 댓글 삭제시 확인창 띄우기
 - [ ] 관리자 사이트컨텐츠 등록화면, 컨텐츠키를 콤보박스로 변경
