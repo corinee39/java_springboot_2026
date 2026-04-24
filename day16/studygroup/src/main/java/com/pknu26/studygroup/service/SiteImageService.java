@@ -64,10 +64,6 @@ public class SiteImageService {
         this.siteImageMapper.insert(siteImage);
     }
 
-    public void update(SiteImageForm form) throws Exception {
-        // TODO
-    }
-
     public void delete(Long id) {
         this.siteImageMapper.delete(id);
     }
