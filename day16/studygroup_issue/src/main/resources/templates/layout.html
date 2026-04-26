@@ -155,45 +155,37 @@
         <div class="collapse navbar-collapse" id="navbarsExample05">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/">Home</a>
+              <a class="nav-link"
+                th:classappend="${currentURI == '/'} ? 'active'"
+                href="/">
+                Home
+              </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" th:href="@{/studypost/list}">StudyPost</a>
+              <a class="nav-link"
+                th:classappend="${currentURI.startsWith('/studypost')} ? 'active'"
+                th:href="@{/studypost/list}">
+                StudyPost
+              </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" th:href="@{/board/list}">Board</a>
+              <a class="nav-link"
+                th:classappend="${currentURI.startsWith('/board')} ? 'active'"
+                th:href="@{/board/list}">
+                Board
+              </a>
             </li>
             <li class="nav-item" th:if="${session.loginUser == null}">
-              <a class="nav-link" th:href="@{/user/join}">Join</a>
+              <a class="nav-link"
+                th:classappend="${currentURI.startsWith('/user/join')} ? 'active'"
+                th:href="@{/user/join}">Join</a>
             </li>
             <li class="nav-item" th:if="${session.loginUser == null}">
-              <a class="nav-link" th:href="@{/user/login}">Login</a>
+              <a class="nav-link"
+                th:classappend="${currentURI.startsWith('/user/login')} ? 'active'"
+                th:href="@{/user/login}">Login</a>
             </li>
             <!-- 관리자의 경우만 카테고리 관리 리스트 진입가능 -->
-            <!-- <li
-              class="nav-item"
-              th:if="${session.loginUser != null and session.loginUser.role == 'ROLE_ADMIN'}"
-            >
-              <a class="nav-link" th:href="@{/admin/categories}"
-                >Category Mng</a
-              >
-            </li>
-            <li
-              class="nav-item"
-              th:if="${session.loginUser != null and session.loginUser.role == 'ROLE_ADMIN'}"
-            >
-              <a class="nav-link" th:href="@{/admin/site/list}">Site Mng</a>
-            </li>
-            <li
-              class="nav-item"
-              th:if="${session.loginUser != null and session.loginUser.role == 'ROLE_ADMIN'}"
-            >
-              <a class="nav-link" th:href="@{/admin/image/list}">Image Mng</a>
-            </li> -->
-
-            <!-- <li class="nav-item">
-              <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-            </li> -->
             <li
               class="nav-item dropdown"
               th:if="${session.loginUser != null and session.loginUser.role == 'ROLE_ADMIN'}"
@@ -203,6 +195,7 @@
                 href="#"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
+                th:classappend="${currentURI.startsWith('/admin')} ? 'active'"
                 >Admin</a
               >
               <ul class="dropdown-menu">
@@ -265,7 +258,7 @@
       </p>
       <p>
         &copy; 2026 PKNU University. &middot;
-        <a href="#">Privacy</a> &middot; <a href="#">Terms</a>
+        <a th:href="@{/privacy}">Privacy</a> &middot; <a th:href="@{/terms}">Terms</a>
       </p>
     </footer>
 

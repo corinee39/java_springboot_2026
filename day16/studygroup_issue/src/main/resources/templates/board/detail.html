@@ -115,9 +115,15 @@
             th:text="${#temporals.format(reply.createdAt, 'yyyy-MM-dd HH:mm')}"
           ></td>
           <td>
-            <form th:action="@{|/reply/delete/${reply.replyId}|}" method="post">
+            <form 
+              th:if="${session.loginUser != null and (session.loginUser.userId == reply.replyWriter or session.loginUser.role == 'ROLE_ADMIN')}"
+              th:action="@{|/reply/delete/${reply.replyId}|}" 
+              method="post"
+              onsubmit="return confirm('댓글을 삭제하시겠습니까?');"
+              style="display: inline">
               <input type="hidden" name="boardId" th:value="${board.boardId}" />
-              <button type="submit" class="btn btn-sm btn-outline-danger">
+              <button type="submit" class="btn btn-sm btn-outline-danger"
+              >
                 <i class="bi bi-trash-fill"></i>
                 삭제
               </button>

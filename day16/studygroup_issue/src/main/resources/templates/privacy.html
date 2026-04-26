@@ -1,0 +1,182 @@
+<!doctype html>
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{layout :: layout(~{::content}, ~{})}"
+>
+  <div th:fragment="content" class="container my-5">
+    <h3 class="mb-3">개인정보처리방침</h3>
+
+    <p class="text-muted">
+      StudyMate는 이용자의 개인정보를 중요하게 생각하며, 「개인정보 보호법」 등 관련 법령을 준수합니다.
+      본 개인정보처리방침은 StudyMate가 어떤 개인정보를 수집하고, 어떻게 이용·보관·파기하는지 안내합니다.
+    </p>
+
+    <div class="alert alert-light border">
+      시행일자: 2026년 04월 12일
+    </div>
+
+    <hr />
+
+    <h5 class="mt-4">1. 개인정보의 처리 목적</h5>
+    <p>StudyMate는 다음의 목적을 위하여 개인정보를 처리합니다.</p>
+    <ul>
+      <li>회원 가입 및 본인 식별</li>
+      <li>스터디 게시글 작성, 댓글 작성, 스터디 신청 등 서비스 제공</li>
+      <li>부정 이용 방지 및 서비스 운영 관리</li>
+      <li>공지사항 전달, 문의 응대 및 민원 처리</li>
+    </ul>
+
+    <h5 class="mt-4">2. 처리하는 개인정보 항목</h5>
+    <div class="table-responsive">
+      <table class="table table-bordered align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>구분</th>
+            <th>수집 항목</th>
+            <th>처리 목적</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>회원가입</td>
+            <td>아이디, 비밀번호, 이름, 이메일</td>
+            <td>회원 식별 및 서비스 이용</td>
+          </tr>
+          <tr>
+            <td>서비스 이용</td>
+            <td>게시글, 댓글, 신청 메시지, 작성일시, 수정일시</td>
+            <td>스터디 모집 및 커뮤니티 기능 제공</td>
+          </tr>
+          <tr>
+            <td>자동 수집</td>
+            <td>IP 주소, 접속 로그, 쿠키, 브라우저 정보</td>
+            <td>보안, 부정 이용 방지, 서비스 개선</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h5 class="mt-4">3. 개인정보의 처리 및 보유 기간</h5>
+    <p>
+      StudyMate는 개인정보 수집 및 이용 목적이 달성된 후에는 해당 정보를 지체 없이 파기합니다.
+      단, 관련 법령에 따라 보존이 필요한 경우에는 해당 기간 동안 보관합니다.
+    </p>
+    <div class="table-responsive">
+      <table class="table table-bordered align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>항목</th>
+            <th>보유 기간</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>회원 정보</td>
+            <td>회원 탈퇴 시까지</td>
+          </tr>
+          <tr>
+            <td>게시글, 댓글, 신청 내역</td>
+            <td>삭제 요청 또는 회원 탈퇴 시까지</td>
+          </tr>
+          <tr>
+            <td>접속 로그</td>
+            <td>관련 법령에 따른 보관 기간 또는 서비스 운영상 필요한 기간</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h5 class="mt-4">4. 개인정보의 제3자 제공</h5>
+    <p>
+      StudyMate는 이용자의 개인정보를 원칙적으로 외부에 제공하지 않습니다.
+      다만, 다음의 경우에는 예외적으로 제공될 수 있습니다.
+    </p>
+    <ul>
+      <li>이용자가 사전에 동의한 경우</li>
+      <li>법령에 따라 수사기관 또는 관계기관의 적법한 요청이 있는 경우</li>
+    </ul>
+
+    <h5 class="mt-4">5. 개인정보 처리의 위탁</h5>
+    <p>
+      현재 StudyMate는 개인정보 처리 업무를 외부 업체에 위탁하지 않습니다.
+      향후 위탁이 발생하는 경우 위탁받는 자, 위탁 업무 내용, 보유 및 이용 기간을 본 방침에 공개하겠습니다.
+    </p>
+
+    <h5 class="mt-4">6. 개인정보의 파기 절차 및 방법</h5>
+    <p>
+      StudyMate는 개인정보 보유 기간이 경과하거나 처리 목적이 달성된 경우 지체 없이 개인정보를 파기합니다.
+    </p>
+    <ul>
+      <li>전자적 파일: 복구 및 재생이 불가능한 방법으로 삭제</li>
+      <li>종이 문서: 분쇄 또는 소각</li>
+    </ul>
+
+    <h5 class="mt-4">7. 정보주체와 법정대리인의 권리 및 행사 방법</h5>
+    <p>
+      이용자는 언제든지 자신의 개인정보에 대해 열람, 정정, 삭제, 처리정지를 요구할 수 있습니다.
+      요청은 개인정보 보호책임자 또는 담당 부서에 이메일로 접수할 수 있으며,
+      StudyMate는 관련 법령에 따라 지체 없이 조치합니다.
+    </p>
+
+    <h5 class="mt-4">8. 개인정보의 안전성 확보 조치</h5>
+    <p>StudyMate는 개인정보 보호를 위해 다음과 같은 조치를 취합니다.</p>
+    <ul>
+      <li>비밀번호 암호화 저장</li>
+      <li>개인정보 접근 권한 제한</li>
+      <li>관리자 기능 접근 통제</li>
+      <li>불필요한 개인정보의 최소 수집</li>
+      <li>접속 기록 관리 및 보안 점검</li>
+    </ul>
+
+    <h5 class="mt-4">9. 쿠키의 사용</h5>
+    <p>
+      StudyMate는 로그인 유지 및 서비스 이용 편의 제공을 위해 쿠키를 사용할 수 있습니다.
+      이용자는 브라우저 설정을 통해 쿠키 저장을 거부하거나 삭제할 수 있습니다.
+      다만 쿠키 저장을 거부할 경우 일부 서비스 이용이 제한될 수 있습니다.
+    </p>
+
+    <h5 class="mt-4">10. 개인정보 보호책임자</h5>
+    <div class="table-responsive">
+      <table class="table table-bordered align-middle">
+        <tbody>
+          <tr>
+            <th class="table-light" style="width: 180px">개인정보 보호책임자</th>
+            <td>박신영</td>
+          </tr>
+          <tr>
+            <th class="table-light">소속</th>
+            <td>StudyMate 운영팀</td>
+          </tr>
+          <tr>
+            <th class="table-light">이메일</th>
+            <td>privacy@studymate.com</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h5 class="mt-4">11. 권익침해 구제 방법</h5>
+    <p>
+      이용자는 개인정보 침해에 대한 상담이나 피해 구제를 위해 개인정보침해신고센터,
+      개인정보분쟁조정위원회 등 관련 기관에 문의할 수 있습니다.
+    </p>
+    <ul>
+      <li>개인정보침해신고센터: 국번 없이 118</li>
+      <li>개인정보분쟁조정위원회: 1833-6972</li>
+      <li>대검찰청 사이버수사과: 국번 없이 1301</li>
+      <li>경찰청 사이버수사국: 국번 없이 182</li>
+    </ul>
+
+    <h5 class="mt-4">12. 개인정보처리방침의 변경</h5>
+    <p>
+      본 개인정보처리방침은 시행일로부터 적용됩니다.
+      법령, 정책 또는 서비스 변경에 따라 내용이 변경되는 경우
+      변경 사항은 서비스 화면 또는 공지사항을 통해 안내합니다.
+    </p>
+
+    <div class="mt-5 text-end">
+      <a th:href="@{/}" class="btn btn-sm btn-secondary">홈으로</a>
+    </div>
+  </div>
+</html>

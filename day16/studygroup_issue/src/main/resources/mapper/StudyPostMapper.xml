@@ -17,6 +17,11 @@
              , p.updated_at
              , u.name AS writer_name
              , c.category_name
+             , (
+                SELECT COUNT(*)
+                FROM comments cm
+                WHERE cm.post_id = p.post_id
+            ) AS comment_count
           FROM study_posts p
           JOIN user_account u ON p.user_id = u.user_id
           LEFT JOIN categories c ON p.category_id = c.category_id

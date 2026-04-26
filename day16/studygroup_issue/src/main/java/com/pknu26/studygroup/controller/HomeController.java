@@ -33,4 +33,16 @@ public class HomeController {
         model.addAttribute("homeContent", homeContent);
         return "/home";
     }
+
+    // 260426 개인정보처리방침
+    @GetMapping("/privacy")
+    public String privacy() {
+        return "/privacy";
+    }
+
+    // 260426 이용약관
+    @GetMapping("/terms")
+    public String terms() {
+        return "/terms";
+    }
 }

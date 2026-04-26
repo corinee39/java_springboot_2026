@@ -41,6 +41,13 @@
                   th:href="@{/studypost/detail/{id}(id=${post.postId})}"
                   th:text="${post.title}"
                 ></a>
+
+                <span
+                  th:if="${post.commentCount > 0}"
+                  th:text="' [' + ${post.commentCount} + ']'"
+                  class="text-danger"
+                ></span>
+
                 <span th:if="${post.status == 'CLOSED'}" class="badge bg-danger"
                   >모집마감</span
                 >

@@ -24,4 +24,5 @@ public class StudyPost {
     // 조인 조회용
     private String writerName;
     private String categoryName;
+    private int commentCount;  // 260426 추가
 }
