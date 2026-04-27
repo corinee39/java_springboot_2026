@@ -210,44 +210,6 @@ StudyGroup
 
 https://github.com/user-attachments/assets/62babf50-61d6-408d-a113-1c19e024b7e9
 
-### Spring Security
-
-#### 개요
-
-- Spring 기반 애플리케이션 인증(Authentication), 권한(Authorization)을 담당하는 보안 프레임워크
-  - 인증 : 로그인 기능, 세션처리, CSRF/CORS 보안처리
-  - 권한 : 접근제어, 글쓰기 가능여부
-
-- 기본동작
-  - 요청 -> 필터체인 통과
-  - 인증여부 확인
-  - 미로그인시 로그인페이지로 이동
-  - 로그인 성공 후 세션에 사용자 정보 저장
-
-#### 진행순서
-
-- 의존성 추가
-- 비밀번호 암호화 PasswordEncoder 등록
-- UserDetailsService 생성
-- 로그인 페이지 연결
-- 권한별 URL 제한
-- Thymeleaf 로그인/관리자 조건 처리
-
-#### Spring Security 개발
-
-- build.gradle에 의존성 추가
-- 실행화면
-
-  ![alt text](image-50.png)
-
-### JWT
-
-#### 개요
-
-- JSON Web Token : 로그인 후에 서버에서 발급하는 토큰 기반의 인증방식
-  - React, Node.js 등의 다르나 프론트엔드와 연계하는 풀스택 개발시 사용하는 인증방식
-  - 서버에 세션을 저장안함. 토큰으로 인증 대체
-
 #### 이슈 처리
 
 - [x] 파일 업로드
@@ -276,3 +238,93 @@ https://github.com/user-attachments/assets/62babf50-61d6-408d-a113-1c19e024b7e9
 
 - 미니프로젝트 팀 구성
 - 미니프로젝트 주제
+
+### Spring Security
+
+#### 개요
+
+- Spring 기반 애플리케이션 인증(Authentication), 권한(Authorization)을 담당하는 보안 프레임워크
+  - 인증 : 로그인 기능, 세션처리, CSRF/CORS 보안처리
+  - 권한 : 접근제어, 글쓰기 가능여부
+
+- 기본동작
+  - 요청 -> 필터체인 통과
+  - 인증여부 확인
+  - 미로그인시 로그인페이지로 이동
+  - 로그인 성공 후 세션에 사용자 정보 저장
+
+#### Spring Security 개발
+
+- build.gradle에 의존성 추가
+- 실행화면
+
+  ![alt text](image-50.png)
+
+#### 진행순서
+
+- 의존성 추가
+- 비밀번호 암호화 PasswordEncoder 등록
+- CustomUserDetails 생성
+- UserDetailsService 생성
+- SecurityConfig 생성(권한별 URL 제한)
+- 기존 UserController 수정
+- 로그인 페이지 수정
+- layout.html SpringSecurity thymeleaf 추가
+  - session.loginUser 제거
+  - sec:authorize 속성으로 변경
+- Thymeleaf 로그인/관리자 조건 처리
+
+  ```html
+  <!-- 제거 -->
+  <div th:if="${#fields.hasGlobalErrors()}" class="alert alert-danger">
+    <p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+  </div>
+  ```
+
+- 기타 Controller에서 session 내용 제거
+
+## 17일차
+
+### Spring Security
+
+#### build.gradle 적용
+
+- 서버 실행
+
+  ```powershell
+  2026-04-27T09:30:40.271+09:00  WARN 25540 --- [studygroup] [  restartedMain] .s.a.UserDetailsServiceAutoConfiguration :
+
+  # User 임시 패스워드
+  Using generated security password: 0d218236-ff90-4f8a-9a1a-994987205e2c
+
+  This generated password is for development use only. Your security configuration must be updated before running your application in production.
+  ```
+
+- Spring Security Crypto 라이브러리 -> 제거
+
+  ![alt text](image-51.png)
+
+### JWT
+
+#### 개요
+
+- JSON Web Token : 로그인 후에 서버에서 발급하는 토큰 기반의 인증방식
+  - React, Node.js 등의 다르나 프론트엔드와 연계하는 풀스택 개발시 사용하는 인증방식
+  - 서버에 세션을 저장안함. 토큰으로 인증 대체
+
+#### JWT 반영순서
+
+- 로그인 > JWT 발급 > 요청 시 JWT 검증 > 인증처리
+
+#### 진행순서
+
+- build.gradle 의존성 추가
+- application.properties JWT 설정 추가
+- config, JwtProvider 클래스 생성
+
+- dto/api, API 요청/응답용 dto 생성
+- security, JwtAuthenticationFilter 클래스 생성
+- controller, ApiAuthController 클래스 생성
+- config, SecurityConfig 수정
+
+- 테스트 컨트롤러
