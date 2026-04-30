@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.pknu26.studygroup.security.CustomOAuth2UserService;
 import com.pknu26.studygroup.security.JwtAuthenticationFilter;
 
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,9 @@ import lombok.RequiredArgsConstructor;
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    // 260429 OAuth2 로그인 서비스 추가
+    private final CustomOAuth2UserService customOAuth2UserService;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -34,7 +38,9 @@ public class SecurityConfig {
                     "/images/**",
                     "/js/**",
                     "/trumbowyg/**",
-                    "/upload/**"
+                    "/upload/**",
+                    "/oauth2/**",  // 260429 소셜로그인 URL도 아무나 접근 가능
+                    "/login/oauth2/**"
                 ).permitAll()   // 인증없이 누구나 접근 가능
                 
                 .requestMatchers("/admin/**").hasRole("ADMIN")  // ROLE_ADMIN 에게만 /admin/ 접속권한
@@ -59,6 +65,14 @@ public class SecurityConfig {
                 .defaultSuccessUrl("/studypost/list", true)  // 접속 성공 후 이동하는 첫페이지
                 .failureUrl("/user/login?error=true")  // 로그인 에러났을때 화면
                 .permitAll()
+            )
+            // 260429 소셜로그인 추가
+            .oauth2Login(oauth2 -> oauth2
+                .loginPage("/user/login")
+                .userInfoEndpoint(userInfo -> userInfo
+                    .userService(customOAuth2UserService)
+                )
+                .defaultSuccessUrl("/studypost/list", true)
             )
             .logout(logout -> logout
                 .logoutUrl("/user/logout")
