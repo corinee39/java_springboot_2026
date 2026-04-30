@@ -455,3 +455,15 @@ JWT API Login
     ![alt text](image-58.png)
 
     ![alt text](image-57.png)
+
+  - Google 환경 로그인
+
+    ![alt text](image-59.png)
+
+  - 구글 로그인
+
+    ![alt text](image-60.png)
+
+    ![alt text](image-61.png)
+
+    
